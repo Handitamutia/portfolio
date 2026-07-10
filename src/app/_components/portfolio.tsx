@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   BadgeCheck,
+  BriefcaseBusiness,
+  CalendarDays,
+  Download,
   Github,
-  Globe2,
   Linkedin,
   Mail,
   MapPin,
@@ -18,13 +20,20 @@ import {
 import { Button } from "@/components/ui/button";
 
 import {
+  articles,
+  experiences,
   processItems,
   projects,
   services,
+  skillGroups,
+  type ArticleItem,
+  type ExperienceItem,
   testimonials,
   type ProjectItem,
+  type SkillGroup,
   type TestimonialItem,
 } from "./portfolio-data";
+import { Badge } from "@/components/ui/badge";
 
 const shellClass = "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10";
 
@@ -37,10 +46,14 @@ export function Portfolio() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f8f0ea] text-[#252047]">
       <HeroSection />
+      <AboutSection />
       <WorkSection />
-      <FeatureBand />
+      <ExperienceSection />
+      {/* <FeatureBand /> */}
+      <SkillsSection />
       <ProcessSection />
-      <TestimonialsSection />
+      <ArticlesSection />
+      {/* <TestimonialsSection /> */}
       <ContactSection />
     </main>
   );
@@ -78,16 +91,27 @@ function HeroSection() {
                 Web Developer
               </p>
             </div>
-            <Button className="rounded-full border-[#252047]/20">
-              <a
-                href="/cv/cv-2025.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+              <Button
+                asChild
+                className="bg-[#e98579] text-white hover:bg-[#d96d68]"
               >
-                {/* https://drive.google.com/uc?export=download&id=1X5JZ1X5JZ1X5JZ1X5JZ1X5JZ1X5JZ1X5 */}
-                Download CV
-              </a>
-            </Button>
+                <a href="#contact">Let's Talk</a>
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-full border-[#252047]/20"
+              >
+                <a
+                  href="/cv/cv-2025.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download CV
+                </a>
+                <Download className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </motion.div>
         <HeroPortrait />
@@ -138,9 +162,12 @@ function HeroPortrait() {
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7, delay: 0.1 }}
-      className="pointer-events-none relative z-10 -mt-8 min-h-56 sm:-mt-16 sm:min-h-80 md:min-h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:min-h-[520px] lg:w-[63%]"
+      className="pointer-events-none relative z-10 -mt-2 min-h-56 sm:-mt-16 sm:min-h-80 md:min-h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:min-h-[520px] lg:w-[63%]"
     >
-      <div className="absolute bottom-0 left-1/2 h-[95%] w-[70%] max-w-72 -translate-x-1/2 overflow-hidden rounded-t-full bg-[radial-gradient(circle_at_50%_50%,#fff5ea_0,#ead8ff_35%,#b5a4cd_100%)] sm:w-[58%] sm:max-w-none lg:left-auto lg:right-[-6%] lg:h-[98%] lg:w-[78%] lg:translate-x-0">
+      <div
+        className="relative bottom-0 min-h-72 left-1/2 h-[95%] w-[70%] max-w-72 -translate-x-1/2 overflow-hidden rounded-t-full bg-[radial-gradient(circle_at_50%_50%,#fff5ea_0,#ead8ff_35%,#b5a4cd_100%)] 
+      sm:w-[58%] sm:max-w-none lg:absolute lg:left-auto lg:right-[-6%] lg:h-[98%] lg:w-[78%] lg:translate-x-0"
+      >
         <Image
           src="/profile/Profile.png"
           alt="Ilustrasi portofolio kreatif"
@@ -182,22 +209,84 @@ function HeroPortrait() {
 
 function StatsCard() {
   return (
-    <div className="absolute bottom-16 right-0 z-20 w-36 rounded-[1.35rem] bg-[#252047] p-6 text-white shadow-[0_24px_70px_rgba(37,32,71,0.28)] sm:bottom-20 sm:right-[4%] lg:right-[-1%]">
-      <Sparkles className="mb-5 h-4 w-4 fill-white text-white" />
-      <p className="text-2xl font-semibold">5+</p>
-      <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.14em] text-white/70">
-        Years of Experience
-      </p>
-      <div className="my-4 h-px bg-white/15" />
-      <p className="text-2xl font-semibold">30+</p>
-      <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.14em] text-white/70">
-        Projects Delivered
-      </p>
-      <div className="my-4 h-px bg-white/15" />
-      <p className="text-2xl font-semibold">20+</p>
-      <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.14em] text-white/70">
-        Happy Clients
-      </p>
+    <div
+      className="
+        z-20
+
+        mt-4
+        w-full
+        rounded-2xl
+        bg-[#252047]
+        p-4
+        text-white
+        shadow-[0_20px_60px_rgba(37,32,71,0.25)]
+
+        flex
+        items-center
+        justify-between
+        gap-3
+
+        lg:absolute
+        lg:bottom-16
+        lg:right-[-1%]
+        lg:mt-0
+        lg:w-36
+        lg:flex-col
+        lg:items-start
+        lg:justify-start
+        lg:rounded-[1.35rem]
+        lg:p-6
+      "
+    >
+      {/* Mobile */}
+      <div className="flex-1 text-center lg:hidden">
+        <p className="text-lg font-semibold">2+</p>
+        <p className="text-[9px] font-bold uppercase leading-3 tracking-[0.08em] text-white/70">
+          Years
+        </p>
+      </div>
+
+      <div className="h-8 w-px bg-white/15 lg:hidden" />
+
+      <div className="flex-1 text-center lg:hidden">
+        <p className="text-lg font-semibold">30+</p>
+        <p className="text-[9px] font-bold uppercase leading-3 tracking-[0.08em] text-white/70">
+          Projects
+        </p>
+      </div>
+
+      <div className="h-8 w-px bg-white/15 lg:hidden" />
+
+      <div className="flex-1 text-center lg:hidden">
+        <p className="text-lg font-semibold">20+</p>
+        <p className="text-[9px] font-bold uppercase leading-3 tracking-[0.08em] text-white/70">
+          Clients
+        </p>
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden lg:block w-full">
+        <Sparkles className="mb-5 h-4 w-4 fill-white text-white" />
+
+        <p className="text-2xl font-semibold">2+</p>
+        <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.14em] text-white/70">
+          Years of Experience
+        </p>
+
+        <div className="my-4 h-px bg-white/15" />
+
+        <p className="text-2xl font-semibold">30+</p>
+        <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.14em] text-white/70">
+          Projects Delivered
+        </p>
+
+        <div className="my-4 h-px bg-white/15" />
+
+        <p className="text-2xl font-semibold">20+</p>
+        <p className="text-[10px] font-bold uppercase leading-4 tracking-[0.14em] text-white/70">
+          Happy Clients
+        </p>
+      </div>
     </div>
   );
 }
@@ -227,10 +316,10 @@ function ContactStrip() {
 function WorkSection() {
   return (
     <section
-      id="work"
-      className={`${shellClass} grid gap-6 py-5 lg:grid-cols-[1fr_340px]`}
+      id="projects"
+      className={`${shellClass} grid gap-6 py-5 lg:grid-cols-[1fr_340px] lg:items-stretch`}
     >
-      <div>
+      <div className="lg:h-full">
         <SectionHeader
           title="Selected Work"
           actionLabel="View all projects"
@@ -244,31 +333,6 @@ function WorkSection() {
       </div>
       <ServicesPanel />
     </section>
-  );
-}
-
-function SectionHeader({
-  title,
-  actionLabel,
-  href,
-}: {
-  title: string;
-  actionLabel: string;
-  href: string;
-}) {
-  return (
-    <div className="mb-5 flex items-center justify-between gap-4">
-      <h2 className="font-serif text-3xl">
-        {title} <span className="text-[#d96d68]">+</span>
-      </h2>
-      <a
-        href={href}
-        className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em]"
-      >
-        {actionLabel}
-        <ArrowRight className="h-4 w-4" />
-      </a>
-    </div>
   );
 }
 
@@ -327,7 +391,7 @@ function ProjectCard({
 
 function ServicesPanel() {
   return (
-    <aside className="rounded-lg bg-[#252047] p-7 text-white">
+    <aside className="rounded-lg bg-[#252047] p-7 text-white h-full flex flex-col justify-center">
       <h2 className="font-serif text-3xl">
         What I Do <span className="text-[#d96d68]">+</span>
       </h2>
@@ -350,24 +414,154 @@ function ServicesPanel() {
   );
 }
 
+function AboutSection() {
+  return (
+    <section className={`${shellClass} py-10`}>
+      <div
+        className="grid gap-4 border-b border-[#252047]/15 pb-10 lg:grid-cols-[0.9fr_1.1fr]"      >
+        {/* Left */}
+        <div>
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#d96d68]">
+            About Me
+          </p>
+
+          <h2 className="mt-4 max-w-md font-serif text-3xl lg:text-5xl leading-[1.05]">
+            I enjoy learning new technologies through personal projects.
+          </h2>
+        </div>
+
+        {/* Right */}
+        <div className="max-w-xl">
+          <p className="text-base leading-8 text-[#57506e]">
+            Saya Handita Mutia, Full Stack Web Developer yang berfokus membangun
+            website modern, aplikasi web, dan sistem bisnis yang membantu
+            pekerjaan menjadi lebih efisien.
+          </p>
+
+          <p className="mt-6 text-base leading-8 text-[#57506e]">
+            Saya menikmati menggabungkan frontend, backend, UI/UX, serta
+            kebutuhan operasional sehingga aplikasi tidak hanya terlihat menarik
+            tetapi juga nyaman digunakan dan mudah dikembangkan.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Badge>Full Stack</Badge>
+            <Badge>Next.js</Badge>
+            <Badge>Node.js</Badge>
+            <Badge>Prisma</Badge>
+            <Badge>UI/UX</Badge>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ExperienceSection() {
+  return (
+    <section id="experience" className={`${shellClass} py-8`}>
+      <SectionHeader
+        title="Experience"
+        actionLabel="Download CV"
+        href="/cv/cv-2025.pdf"
+      />
+      <div className="grid gap-5 md:grid-cols-3">
+        {experiences.map((experience, index) => (
+          <ExperienceCard
+            key={`${experience.role}-${experience.company}`}
+            experience={experience}
+            index={index}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ExperienceCard({
+  experience,
+  index,
+}: {
+  experience: ExperienceItem;
+  index: number;
+}) {
+  return (
+    <motion.article
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={fadeUp}
+      transition={{ duration: 0.45, delay: index * 0.08 }}
+      className="rounded-lg border border-[#252047]/10 bg-white/70 p-6 shadow-[0_18px_40px_rgba(37,32,71,0.06)]"
+    >
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#e98579] text-white">
+        <BriefcaseBusiness className="h-5 w-5" />
+      </span>
+      <p className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#d96d68]">
+        <CalendarDays className="h-4 w-4" />
+        {experience.period}
+      </p>
+      <h3 className="mt-3 text-sm font-extrabold uppercase tracking-[0.12em]">
+        {experience.role}
+      </h3>
+      <p className="mt-1 text-xs font-semibold text-[#57506e]">
+        {experience.company}
+      </p>
+      <p className="mt-4 text-xs leading-6 text-[#57506e]">
+        {experience.detail}
+      </p>
+    </motion.article>
+  );
+}
+
+function SectionHeader({
+  title,
+  actionLabel,
+  href,
+}: {
+  title: string;
+  actionLabel: string;
+  href: string;
+}) {
+  return (
+    <div className="mb-5 flex items-center justify-between gap-4">
+      <h2 className="font-serif text-3xl">
+        {title} <span className="text-[#d96d68]">+</span>
+      </h2>
+      <a
+        href={href}
+        className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em]"
+      >
+        {actionLabel}
+        <ArrowRight className="h-4 w-4" />
+      </a>
+    </div>
+  );
+}
+
 function FeatureBand() {
   return (
     <section className={`${shellClass} pb-8`}>
-      <div className="grid overflow-hidden rounded-none 
+      <div
+        className="grid overflow-hidden rounded-none 
         bg-[radial-gradient(circle_at_50%_35%,#fff5ea_0%,#ead8ff_35%,#cdb7d6_100%)]
-        md:grid-cols-[0.85fr_1.15fr_0.8fr]">
-          {/* bg-[#d9c4ee]  */}
+        md:grid-cols-[0.85fr_1.15fr_0.8fr]"
+      >
+        {/* bg-[#d9c4ee]  */}
         <div className="flex min-h-44 items-center justify-center p-2">
           {/* bg-[#cdb4e8] */}
-          <span className="font-serif text-9xl text-white">H*</span>
+          <span className="font-serif text-9xl text-white">H</span>
+          <Star className="h-8 w-8 text-white" />
         </div>
-        <div className="flex flex-col justify-center py-8">
+        <div className="flex flex-col justify-center py-8 *:px-4 sm:px-6 lg:px-10">
           <h2 className="font-serif text-3xl leading-tight">
-            Design with purpose. Create with heart.
+            I enjoy turning ideas into reliable web applications.
           </h2>
           <p className="mt-4 max-w-md text-sm leading-7 text-[#3f385b]">
-            Setiap bagian dibuat untuk membantu portfolio terasa personal,
-            jelas, dan memorable.
+            Saya berfokus pada pembuatan sistem yang scalable, maintainable, dan
+            user-friendly. Dengan pengalaman lebih dari 2 tahun, saya telah
+            mengerjakan berbagai proyek mulai dari website bisnis hingga
+            aplikasi web kompleks.
           </p>
         </div>
         <div className="relative min-h-56 overflow-hidden">
@@ -383,6 +577,66 @@ function FeatureBand() {
         </div>
       </div>
     </section>
+  );
+}
+
+function SkillsSection() {
+  return (
+    <section id="skills" className={`${shellClass} pb-10`}>
+      <div className="grid gap-6 lg:grid-cols-[330px_1fr]">
+        <div className="flex flex-col justify-evenly lg:sticky lg:top-24">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#d96d68]">
+            Skills
+          </p>
+          <h2 className="mt-3 font-serif text-4xl leading-tight">
+            Tools and abilities I use to build.
+          </h2>
+          <div className="w-full flex flex-grow rounded-lg border-1-[#d96d68] border p-6 mt-4 gap-4 justify-center">
+            <div className="rounded-full min-w-8 h-8 bg-[#e78580]/50 flex flex-grow items-center justify-center">
+              <Sparkles className="h-4 w-4 border-[#a73933] text-[#a73933]" />
+            </div>
+            <div className="flex flex-col gap-4 lg:gap-6">
+              <p className="font-bold">Always Learning</p>
+              <p className="">
+                I enjoy exploring new technologies to create better products.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {skillGroups.map((group) => (
+            <SkillCard key={group.title} group={group} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SkillCard({ group }: { group: SkillGroup }) {
+  const { Icon } = group;
+
+  return (
+    <article className="rounded-lg bg-white/75 p-5 shadow-[0_18px_40px_rgba(37,32,71,0.06)]">
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#252047] text-white">
+          <Icon className="h-5 w-5" />
+        </span>
+        <h3 className="text-xs font-extrabold uppercase tracking-[0.14em]">
+          {group.title}
+        </h3>
+      </div>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {group.skills.map((skill) => (
+          <span
+            key={skill}
+            className="rounded-full border border-[#252047]/10 bg-[#f8f0ea] px-3 py-1 text-xs font-semibold text-[#57506e]"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </article>
   );
 }
 
@@ -426,6 +680,42 @@ function TestimonialsSection() {
         ))}
       </div>
     </section>
+  );
+}
+
+function ArticlesSection() {
+  return (
+    <section id="articles" className={`${shellClass} pb-10`}>
+      <SectionHeader
+        title="Articles"
+        actionLabel="Discuss an idea"
+        href="#contact"
+      />
+      <div className="grid gap-5 md:grid-cols-3">
+        {articles.map((article) => (
+          <ArticleCard key={article.title} article={article} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ArticleCard({ article }: { article: ArticleItem }) {
+  return (
+    <article className="group rounded-lg border border-[#252047]/10 bg-[#fbf2e5] p-6 transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(37,32,71,0.08)]">
+      <p className="flex items-center justify-between gap-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#d96d68]">
+        {article.category}
+        <span>{article.date}</span>
+      </p>
+      <h3 className="mt-4 min-h-14 font-serif text-2xl leading-tight text-[#252047]">
+        {article.title}
+      </h3>
+      <p className="mt-3 text-xs leading-6 text-[#57506e]">{article.detail}</p>
+      <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em]">
+        Read note
+        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+      </span>
+    </article>
   );
 }
 
@@ -475,7 +765,7 @@ function ContactSection() {
             asChild
             className="mt-8 bg-[#e98579] text-white hover:bg-[#d96d68]"
           >
-            <a href="mailto:hello@example.com">
+            <a href="mailto:handitamutia@gmail.com">
               Get in touch
               <ArrowRight className="h-4 w-4" />
             </a>
@@ -506,14 +796,14 @@ function ContactLinks() {
         Indonesia
       </span>
       <a
-        href="mailto:hello@example.com"
+        href="mailto:handitamutia@gmail.com"
         className="inline-flex items-center gap-3 hover:text-[#e98579]"
       >
         <Mail className="h-5 w-5 text-[#e98579]" />
-        hello@example.com
+        handitamutia@gmail.com
       </a>
       <a
-        href="https://github.com/"
+        href="https://github.com/handitamutia"
         target="_blank"
         rel="noreferrer"
         className="inline-flex items-center gap-3 hover:text-[#e98579]"
@@ -522,7 +812,7 @@ function ContactLinks() {
         github.com
       </a>
       <a
-        href="https://linkedin.com/"
+        href="https://linkedin.com/in/handitamutia"
         target="_blank"
         rel="noreferrer"
         className="inline-flex items-center gap-3 hover:text-[#e98579]"
@@ -530,10 +820,10 @@ function ContactLinks() {
         <Linkedin className="h-5 w-5 text-[#e98579]" />
         linkedin.com
       </a>
-      <span className="inline-flex items-center gap-3">
+      {/* <span className="inline-flex items-center gap-3">
         <Globe2 className="h-5 w-5 text-[#e98579]" />
         portfolio.studio
-      </span>
+      </span> */}
     </div>
   );
 }
