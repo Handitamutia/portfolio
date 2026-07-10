@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   ArrowRight,
   BadgeCheck,
@@ -382,7 +383,11 @@ function ProjectCard({
           variant="outline"
           className="h-9 w-9 rounded-full border-[#252047]/20"
         >
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-4 w-4">
+            <Link href={`projects/${project.slug}`} target="_blank" rel="noopener noreferrer">
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </ArrowRight>
         </Button>
       </div>
     </motion.article>
