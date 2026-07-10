@@ -250,18 +250,18 @@ function StatsCard() {
       <div className="h-8 w-px bg-white/15 lg:hidden" />
 
       <div className="flex-1 text-center lg:hidden">
-        <p className="text-lg font-semibold">30+</p>
+        <p className="text-lg font-semibold">15+</p>
         <p className="text-[9px] font-bold uppercase leading-3 tracking-[0.08em] text-white/70">
-          Projects
+          Feature Build
         </p>
       </div>
 
       <div className="h-8 w-px bg-white/15 lg:hidden" />
 
       <div className="flex-1 text-center lg:hidden">
-        <p className="text-lg font-semibold">20+</p>
+        <p className="text-lg font-semibold">2</p>
         <p className="text-[9px] font-bold uppercase leading-3 tracking-[0.08em] text-white/70">
-          Clients
+          Production Project
         </p>
       </div>
 
@@ -369,7 +369,7 @@ function ProjectCard({
         </div>
         <div className="absolute bottom-5 left-5 right-5 h-10 rounded-md bg-white/35 backdrop-blur" />
       </div>
-      <div className="flex items-end justify-between gap-3 px-2 pb-1 pt-4">
+      <div className="flex items-start justify-between gap-3 px-2 pb-1 pt-4">
         <div>
           <h3 className="text-xs font-extrabold uppercase tracking-[0.12em]">
             {project.title}
@@ -381,7 +381,7 @@ function ProjectCard({
         <Button
           size="icon"
           variant="outline"
-          className="h-9 w-9 rounded-full border-[#252047]/20"
+          className="h-9 w-9 rounded-full border-[#252047]/20 flex-none"
         >
           <ArrowRight className="h-4 w-4">
             <Link href={`projects/${project.slug}`} target="_blank" rel="noopener noreferrer">

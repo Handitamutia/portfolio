@@ -293,22 +293,22 @@ export const projects: ProjectItem[] = [
 
 export const experiences: ExperienceItem[] = [
   {
-    role: "Web Developer",
-    company: "Freelance & Project Based",
+    role: "Full Stack Developer & IT Support",
+    company: "PT.Reka Cipta Inovasi",
     period: "2023 - Present",
     detail:
       "Membangun website responsif, company profile, landing page, dan aplikasi web yang fokus pada kebutuhan bisnis.",
   },
   {
-    role: "IT & System Support",
-    company: "Operational Support",
-    period: "2022 - Present",
+    role: "Office Employee",
+    company: "Consulting Firm Koesman, Koesman & Ramona",
+    period: "2021 - 2022",
     detail:
-      "Membantu maintenance, troubleshooting, dokumentasi kebutuhan, dan perbaikan alur kerja digital.",
+      "Accurately input financial data into accounting software or spreadsheets.",
   },
   {
-    role: "UI/UX Designer",
-    company: "Product & Web Projects",
+    role: "Freelance 3D Modeler",
+    company: "Self Employed",
     period: "2022 - Present",
     detail:
       "Menyusun wireframe, prototype, dan tampilan yang mudah digunakan untuk pengalaman pengguna yang lebih rapi.",
